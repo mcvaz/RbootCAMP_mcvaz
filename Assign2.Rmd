@@ -115,10 +115,23 @@ mean(d)
 ### B.3.4 Matrices
 ```{r}
 
+matrix(letters[1:4],ncol=2)
+m = matrix(1:4,nrow=2)
+m
+m2 = matrix(1:4,nrow=2,byrow=T)
+m2
+i = diag(1,nrow=2)
+i
+minv = solve(m)
+m%*%minv==i
 
+# Extraction
+m[1,2]
+m[1,1:2]
+m[,2]
+m[,]
 
-
-
+# Simple matrix algebra
 
 ```
 
