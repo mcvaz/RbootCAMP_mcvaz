@@ -23,26 +23,45 @@ RSiteSearch("violin",restrict=c("functions"))
 ```
 
 
-## B.2
+## B.2 Assignment
 ```{r}
+
+
+
+
+
 
 ```
 
 
+## B.3
 ```{r}
+
+
+
+
+
 
 ```
 
 
-
+## B.4
 ```{r}
+
+
+
+
+
 
 ```
 
 
-
+## B.5
 ```{r}
 
+
+
+
+
+
 ```
-
-
