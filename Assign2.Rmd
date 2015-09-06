@@ -138,10 +138,12 @@ m[,]
 ### B.3.5 Data frames
 ```{r}
 
-
-
-
-
+dat = data.frame(species=c("S.altissima","S.rugosa","E.graminifolia","A. pilosus"),treatment = factor(c("Control","Water", "Control", "Water")), height = c(1.1,0.8, 0.9, 1), width = c(1, 1.7, 0.6, 0.2))
+dat
+dat[2,]
+dat[3,4]
+dat[dat[,2]=="Water",]
+subset(dat,treatment=="Water")
 
 ```
 
@@ -156,7 +158,18 @@ m[,]
 ```
 
 
-## B.5
+## B.6
+```{r}
+
+
+
+
+
+
+```
+
+
+## B.13
 ```{r}
 
 
