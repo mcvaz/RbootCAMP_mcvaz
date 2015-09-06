@@ -9,6 +9,7 @@ output: html_document
 
 ## B.1 Help
 ```{r}
+
 # Getting information about a known function
 ?mean
 help(mean)
@@ -26,15 +27,92 @@ RSiteSearch("violin",restrict=c("functions"))
 ## B.2 Assignment
 ```{r}
 
-
-
-
-
+a = 2+3
+a
+b = a+a
+a+a;a+b
 
 ```
 
 
-## B.3
+## B.3 Data structures
+### B.3.1 Vectors
+```{r}
+
+y = c(8.3,8.6,10.7,10.8,11,11,11.1,11.2,11.3,11.4)
+
+# Sequences
+1:4
+4:1
+-1:3
+-(1:3)
+seq(1,3,.2)
+seq(1,3,length=7)
+rep(1,3)
+rep(1:3,2)
+rep(1:3,each=2)
+
+```
+
+### B.3.2 Getting information about vectors
+```{r}
+
+sum(y)
+mean(y)
+max(y)
+length(y)
+summary(y)
+
+names = c("Lizbeth","ChenLei")
+names  
+
+b = c(T,F)
+b  
+
+class(y)
+class(b)
+
+y>10
+y>mean(y)
+y==11
+y!=11
+
+# Algebra with vectors
+a = 1:3
+b = 4:6
+a+b
+a*b
+a/b
+a+1
+a*2
+1/a
+a*1:2
+a*c(1,2,1)
+1:4*1:2
+1:4*c(1,2,1,2)
+
+```
+
+### B.3.3 Extraction and missing values
+```{r}
+
+y[1]
+y[1:3]
+y[y>mean(y)]
+
+a = c(5,3,6,NA)
+a
+is.na(a)
+!is.na(a)
+a[!is.na(a)]
+na.exclude(a)
+mean(a)
+d = na.exclude(a)
+mean(d)
+
+```
+
+### B.3.4 Matrices
 ```{r}
 
 
@@ -44,6 +122,15 @@ RSiteSearch("violin",restrict=c("functions"))
 
 ```
 
+### B.3.5 Data frames
+```{r}
+
+
+
+
+
+
+```
 
 ## B.4
 ```{r}
