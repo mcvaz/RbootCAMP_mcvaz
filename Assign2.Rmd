@@ -1,0 +1,48 @@
+---
+title: "Assign2"
+author: "M. Vaz"
+date: "Saturday, September 05, 2015"
+output: html_document
+---
+
+# B. Programming in R
+
+## B.1 Help
+```{r}
+# Getting information about a known function
+?mean
+help(mean)
+
+# Searching for an in-built function
+help.search("mean")
+apropos("mean")
+
+# Searching for "outside" functions 
+RSiteSearch("violin",restrict=c("functions"))
+
+```
+
+
+## B.2
+```{r}
+
+```
+
+
+```{r}
+
+```
+
+
+
+```{r}
+
+```
+
+
+
+```{r}
+
+```
+
+
