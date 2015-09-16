@@ -24,7 +24,7 @@ getwd()
 
 
 ### Help!
-```{r}
+```{r,eval=FALSE}
 help(sum)
 ?xtabs
 ??average
@@ -39,7 +39,7 @@ cat(letters4,sep="\n")
 
 
 ### Installing packages
-```{r}
+```{r,eval=FALSE}
 install.packages(c("geiger","laser"),dep=T)
 ```
 
@@ -55,7 +55,7 @@ ls()
 ```
 
 ### Quitting R
-```{r}
+```{r,eval=FALSE}
 q(save='no')
 ```
 
@@ -161,7 +161,6 @@ while(xx<10){
   else {cat('not excited about the number',xx,'\n')}
   }
 print(xx)
-
 ```
 
 ### 
