@@ -1,0 +1,30 @@
+---
+title: "Class 1 exercises"
+author: "M. Vaz"
+date: "Wednesday, September 16, 2015"
+output: html_document
+---
+### Loading packages
+
+```{r}
+library(ape)
+library(geiger)
+library()
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
