@@ -9,22 +9,172 @@ output: html_document
 ```{r}
 library(ape)
 library(geiger)
-
 ```
 
-
+### Working directory
 ```{r}
+getwd()
 ```
 
-
+### Comments
 ```{r}
+2+2
+#2+3
 ```
 
 
+### Help!
 ```{r}
+help(sum)
+?xtabs
+??average
 ```
 
 
+### Concatenating
 ```{r}
+letters4 = c("a","b","c","d")
+cat(letters4,sep="\n")
 ```
 
+
+### Installing packages
+```{r}
+install.packages(c("geiger","laser"),dep=T)
+```
+
+
+### Variables
+```{r}
+xx = 1000
+ls()
+rm(xx)
+ls()
+rm(list=ls())
+ls()
+```
+
+### Quitting R
+```{r}
+q(save='no')
+```
+
+### Sourcing
+```{r}
+list.files()
+source('source.example.R')
+ls()
+all.I.know.about.life.I.learned.in.grad.school()
+```
+
+### Reading tree
+```{r}
+library(ape)
+tt = read.tree("tree.tre")
+tt
+str(tt)
+attributes(tt)
+plot(tt)
+```
+
+### Reading data
+```{r}
+dd = read.table("data.txt",header=T,sep="\t",as.is=T)
+str(dd)
+dim(dd)
+size = runif(dim(dd)[1])
+head(dd)
+dd = cbind(dd,size)
+tail(dd)
+```
+
+
+### Indexing
+```{r}
+names(dd)
+head(dd$species)
+tail(dd$species)
+dd[1,1]
+dd[1,2]
+dd[1,]
+dd[,1]
+head(row.names(dd))
+row.names(dd) = dd$species
+head(row.names(dd))
+str(dd)
+dd[5:10,]
+which(dd$mode=='MPF')
+mpf = which(dd$mode=='MPF')
+mpf_swimmers = dd[mpf,]
+head(mpf_swimmers)
+big.fish = dd[which(dd$size>.9),]
+head(big.fish)
+```
+
+
+### NAs
+```{r}
+head(dd)
+cleaned1 = dd[complete.cases(dd),]
+cleaned2 = na.omit(dd)
+dd = cleaned1
+```
+
+
+### Differences
+```{r}
+setdiff(cleaned1,cleaned2)
+setdiff(dd$species,tt$tip.label)
+```
+
+### Changing
+```{r}
+dd$species[which(dd$species=="Chaetodon_plebius")] = 'Chaetodon_plebeius'
+```
+
+### Matching
+```{r}
+del_from_data = setdiff(dd$species, tt$tip.label)
+del_from_data
+match(del_from_data,rownames(dd))
+dd.pruned = dd[match(del_from_data,rownames(dd)),]
+setdiff(dd.pruned$species,tt$tip.label)
+notindd = setdiff(tt$tip.label,dd.pruned$species)
+length(notindd)
+head(notindd)
+```
+
+### For
+```{r}
+for(i in 1:5){cat('\nthe number is',i)}
+notfish = c("bat", "dolphin", "toad", "soldier")
+for(animal in notfish){cat(animal,"fish\n",sep="")}
+```
+
+### While
+```{r}
+xx=1
+while(xx<10){
+  #cat('value of xx',xx,'\n')
+  xx = xx+1;
+  if(xx==7){cat('lucky number',xx,'\n')}
+  else {cat('not excited about the number',xx,'\n')}
+  }
+print(xx)
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
