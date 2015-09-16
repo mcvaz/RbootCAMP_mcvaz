@@ -207,7 +207,7 @@ for(i in 1:length(rs)){lines(res[,i],col=cols[i])}
 legend(115,119241953,rs,col=cols,bty="n",lty=1,title="r")
 ```
 
-### Sensisitivity function
+### ODE
 ```{r}
 
 ```
