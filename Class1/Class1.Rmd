@@ -163,17 +163,51 @@ while(xx<10){
 print(xx)
 ```
 
-### 
+### Pseudo-code
 ```{r}
+## Goal: calculate the sum of all numbers from 1 to 20
+# 1. Create sequence from 1 to 20
+xx = 1:20
+# 2. Sum all these values
+sum(xx)
 
+## Goal: Graph population growth
+# 1. Set parameters: initial population (N), growth rate (r), and time steps (t)
+N = 100; r = 1.05; t = 10
+# 2.Population growth function
+r*N
+# 3. Project growth 10 time steps ahead
+for(i in 1:t){N[i+1] = r*N[i]}
+# 4. Display result
+N
+plot(N,xlab="Time",type="b")
 ```
 
-### 
+### Converting a script into a function
 ```{r}
-
+geomGrowth = function(Ni=100,r=1.05,t=10,plot=TRUE){
+  N = c(Ni,rep(NA,t))
+  for(i in 1:t){N[i+1] = r*N[i]}
+  if(plot){plot(N,xlab="Time",type="l")}
+  return(N)
+  }
+geomGrowth(Ni=100,r=1.05,t=100)
 ```
 
-### 
+### Sensitivity analysis
+```{r}
+rs = seq(.8,1.2,.05)
+res = matrix(NA,ncol=length(rs),nrow=101)
+for(i in 1:length(rs)){
+  res[,i] = geomGrowth(Ni=100,r=rs[i],t=100,plot=F)  
+  }
+cols = rainbow(length(rs),alpha=.7)
+plot(1:10,xlim=c(0,150),ylim=range(res),type="n",log='y',xlab="Time",ylab="N")
+for(i in 1:length(rs)){lines(res[,i],col=cols[i])}
+legend(115,119241953,rs,col=cols,bty="n",lty=1,title="r")
+```
+
+### Sensisitivity function
 ```{r}
 
 ```
