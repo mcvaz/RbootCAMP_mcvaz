@@ -71,29 +71,64 @@ fun <- c(7.8, 2.1, 10.5);  #deduct
 #and incomes (through TAships) of 
 income <- c(21, 21, 21); #add this
 
-balance = bankAccounts
+balance = matrix(NA,ncol=length(bankAccounts),nrow=6)
+balance[1,] = bankAccounts
 for(i in 1:5){
-  balance[i+1] = balbankAccounts-house-food-fun+income
-  balance[i+1] = balance[i+1]*interestRate + balance[i+1]
+  intbal = balance[i,]-house-food-fun+income
+  balance[i+1,] = intbal*interestRate + intbal
   }
-
-
-```
-### 
-```{r}
-
+balance
 ```
 
-### 
+### 7) Three students have estimated annual expenditures for food, housing, and fun of: (in thousands of dollars)
 ```{r}
+bankAccounts <- c(10, 9.2, 5.6); #define bank accounts here
+interestRate <- 0.0525;
+house <- c(4.8, 3.8, 5.7); 
+food<- c(3.5, 4.3, 5.0); 
+fun <- c(7.8, 2.1, 10.5); 
+income <- c(21, 21, 21);
 
+balance = matrix(NA,ncol=length(bankAccounts),nrow=7)
+rownames(balance) = 2014:2020
+balance[1,] = bankAccounts
+for(i in 1:6){
+  intbal = balance[i,]-house-food-fun+income
+  balance[i+1,] = intbal*interestRate + intbal
+  if(as.numeric(rownames(balance)[i+1])%%2==1){balance[i+1,c(1,3)] = balance[i+1,c(1,3)]+5}
+}
+balance
 ```
-### 
-```{r}
 
+### 8) use a while loop to sum all numbers from 1:17. You will need to use a counter variable (like index seen in class).
+```{r}
+res = numeric(length=17)
+x=0
+while(x<17){
+  x=x+1
+  res[x]=x
+  }
+res
+sum(res)
 ```
-
-### 
+### 9) write a function takes a number, and prints ‘small’ if number less than or equal to -1; ‘medium’ if between -1 and + 1’big’ if greater than or equal to + 1
 ```{r}
-
+numberSizeEvaluator = function(x){
+  if(x<(-1)){
+    print('small')
+    } else {
+      if(x>1){print('big')
+        } else {
+          print('medium')
+          }
+      }
+  }
+# OR
+numberSizeEvaluator = function(x){ifelse(x<(-1),'small',ifelse(x>1,'big','medium'))}
+  
+numberSizeEvaluator(-2)
+numberSizeEvaluator(-1)
+numberSizeEvaluator(0)
+numberSizeEvaluator(1)
+numberSizeEvaluator(2)
 ```
