@@ -5,6 +5,7 @@
 
 ################# BEFORE BEGINNING: ######################
 
+
 # First we'll load in a matrix of genotype data
 
 # Copy the data files into a directory you will work in for this part of the course.
