@@ -36,89 +36,83 @@ pvals
 
 ##b)
 ```{r}
-sum(pvals<.05)/length(pvals)
-sum(pvals<.01)/length(pvals)
-sum(pvals<.001)/length(pvals)
+mean(pvals<.05)
+mean(pvals<.01)
+mean(pvals<.001)
+```
 
-# Count the number of pvals smaller than the significance threshold
-signifthres<-0.05
- 
-mean(pvals<signifthres) 
+## c)
+```{r}
+num_pval = length(pvals)
+num_pval
+```
 
-#which SNPs?
-sig_snps<-subset(pvals,pvals<0.05) #pull out the snps with P-vals<0.05
-sig_snp_ids<-names(sig_snps)
+## d)
+```{r}
+exp_pvals = 1:num_pval/num_pval
+exp_pvals
+```
 
+## e)
+```{r}
+sort_pvals = sort(pvals)
+sort_pvals
+```
 
-#now pull out the genotypes for all teh significant SNPs:
-sig_geno<-snps[sig_snp_ids,]
+## f)
+```{r}
+log_sort_pvals = -log10(sort_pvals)
+log_exp_pvals = -log10(exp_pvals)
+```
 
-#sig_geno is a matrix that has all the genotypes for the 181 SNPs with a P-value<0.05
+## g)
+```{r}
+plot(y=log_sort_pvals,x=log_exp_pvals,xlab="Expected p-values",ylab="Observed p-values")
+```
 
-###################### PLAYING "FIND-THE-SNP" ##########################
-################################################PROBABLY WON'T GET THIS FAR!
-
-
-# In this section, we will read in data that provides a phenotype for each individual, and 
-# then search our list of 
-
-# Read in phenotype data file
-z=read.table("pheno.sim.2014.txt",header=TRUE)
-# Extract the glucose level column as our phenotype of interest
-pheno=z$glucose_mmolperL
-# Check length is equal to number of individuals
-length(pheno)
-# Plot histogram
-hist(pheno)
-
-# Fit a linear model where the genotype is a single categorical variable (equivalent to one-way anova)
-genofactor=factor(snps["rs218206_G",])
-m=lm(pheno~genofactor)
-summary(m)
-# Make a plot of the phenotype as a function of the categorical variable 
-plot(pheno~factor(snps["rs218206_G",]))  # Note: plot automatically produces a boxplot
-
-# Write a function to return the Ftest pvalue from the one-way anova
-calc_Ftest_pval=function(geno){
-	m=lm(pheno~factor(geno))
-	fstat=summary(m)$fstatistic
-	pval=pf(fstat[1],fstat[2],fstat[3],lower.tail=FALSE)
-	return(pval)
-}
-
-# Apply to all SNPs (may be slow)
-pvals=apply(snps,1,calc_Ftest_pval)
-
-# Make a "Manhattan plot"  
-plot(-log10(pvals),pch=16,main="Genome-wide association scan results")
-
-# Note: with Bonferroni correction - singificance treshold is roughly 10^-5 or ~5 on -log10 scale.
-# Add a line to show significance threshold
-abline(h=5,col=2)
-log_pval<-(-log10(pvals))
-
-#now get the SNPs that are more significant than the threshold:
-best_hit_snp<-names(subset(log_pval,log_pval>5))
-#now get teh -log10 pvalue
-subset(log_pval,log_pval>5)
-
-# Look at the results for the best hit SNP more carefully to confirm the result
-m=lm(pheno~factor(snps[best_hit_snp,]))
-plot(pheno~factor(snps[best_hit_snp,]))  # Note: plot automatically produces a boxplot
-summary(m)
-
-
+## h)
+```{r}
+abline(a=0,b=1,col=2,lwd=2,lty=2)
 ```
 
 
+#2.
+## a)
 ```{r}
 
 ```
 
+## b)
 ```{r}
 
 ```
 
+## c)
+```{r}
+
+```
+
+## d)
+```{r}
+
+```
+
+## e)
+```{r}
+
+```
+
+## f)
+```{r}
+
+```
+
+## g)
+```{r}
+
+```
+
+## h)
 ```{r}
 
 ```
