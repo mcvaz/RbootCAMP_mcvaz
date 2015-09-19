@@ -79,40 +79,46 @@ abline(a=0,b=1,col=2,lwd=2,lty=2)
 #2.
 ## a)
 ```{r}
-
+zz = read.table('pheno.sim.2014-1.txt',header=T,as.is=T,sep=" ")
+str(zz)
+head(zz)
 ```
 
 ## b)
 ```{r}
-
+q25 = quantile(zz$glu,probs=.25)
+controls = zz[zz$glu<q25,"Indiv"]
 ```
 
 ## c)
 ```{r}
-
+q75 = quantile(zz$glu,probs=.75)
+cases = zz[zz$glu>q75,"Indiv"]
 ```
 
 ## d)
 ```{r}
-
+plot(density(zz$glu),xlab="Glucose levels",main="")
+abline(v=c(q25,q75),lty=2,col=2)
 ```
 
 ## e)
 ```{r}
-
+case_genotypes = snpsDataFrame['rs7584086_T',cases]
 ```
 
 ## f)
 ```{r}
-
+control_genotypes = snpsDataFrame['rs7584086_T',controls]
 ```
 
 ## g)
 ```{r}
-
+table(as.numeric(case_genotypes))
 ```
 
 ## h)
 ```{r}
+table(as.numeric(control_genotypes))
 
 ```
