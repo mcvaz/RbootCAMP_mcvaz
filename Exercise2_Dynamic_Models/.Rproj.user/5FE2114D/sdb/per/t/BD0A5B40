@@ -1,0 +1,17 @@
+{
+    "contents" : "### Logistic growth model\n\nodeLogGr = function(init=1,tseq=seq(0,20,.01),pars=c(rr=.1,kk=100)){\n  \n  library('deSolve')\n  \n  logGrowthODE  <- function(tt, yy, pars) {\n    derivs <- pars['rr']*yy*(1-yy/pars['kk'])\n    return(list(derivs))\n  }\n  \n  logGrowthOutput <- lsoda( init, tseq, logGrowthODE, pars)\n  \n  plot(logGrowthOutput[,1], logGrowthOutput[,2], col='blue', type='l')\n  \n  return(logGrowthOutput)\n  \n  }",
+    "created" : 1443076515053.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3823022418",
+    "id" : "BD0A5B40",
+    "lastKnownWriteTime" : 1443076919,
+    "path" : "C:/Users/Marcel/Dropbox/PhD/CLASSES/RbootCAMP_mcvaz/Exercise2_Dynamic_Models/ODE_log_growth.R",
+    "project_path" : "ODE_log_growth.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,17 @@
+{
+    "contents" : "### ODE model: exponential growth\n\nodeExpGr = function(init=1,tseq=seq(0,20,.01),pars=c(rr=.1)){\n  \n  library('deSolve')\n\n  expGrowthODE  <- function(tt, yy, pars) {\n    derivs <- pars['rr'] * yy\n    return(list(derivs))\n    }\n  \n  expGrowthOutput <- lsoda( init, tseq, expGrowthODE, pars)\n  \n  plot(expGrowthOutput[,1], expGrowthOutput[,2], col='blue', type='l')\n  \n  return(expGrowthOutput)\n  \n  }",
+    "created" : 1443075425863.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2937214311",
+    "id" : "599EBA6C",
+    "lastKnownWriteTime" : 1443075904,
+    "path" : "C:/Users/Marcel/Dropbox/PhD/CLASSES/RbootCAMP_mcvaz/Exercise2_Dynamic_Models/ODE_exp_growth.R",
+    "project_path" : "ODE_exp_growth.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

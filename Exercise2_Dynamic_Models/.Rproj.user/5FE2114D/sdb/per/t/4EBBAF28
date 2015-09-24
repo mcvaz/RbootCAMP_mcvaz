@@ -1,0 +1,17 @@
+{
+    "contents" : "### Logistic growth in discrete time\ndiscreteLogisticFun = function(N0=10, RR=0.95, KK=250, ttMax=100){\n  NN <- matrix(NA, nrow=1, ncol=ttMax+1)  # initialize variable to a vector of NA values\n  NN[1] <- N0   # set first value to initial condition\n  for (tt in 1:ttMax) {\n    NN[tt+1] <- NN[tt]*(1+RR*(1-NN[tt]/KK))\n    }\n  plot(1:(ttMax+1),NN, xlab=\"time\", ylab=\"N\", type=\"b\", col='blue',cex=.5,pch=16)\n  return(NN)\n  }\n",
+    "created" : 1443055717688.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2849315496",
+    "id" : "4EBBAF28",
+    "lastKnownWriteTime" : 1443072592,
+    "path" : "C:/Users/Marcel/Dropbox/PhD/CLASSES/RbootCAMP_mcvaz/Exercise2_Dynamic_Models/discrete_logistic.R",
+    "project_path" : "discrete_logistic.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

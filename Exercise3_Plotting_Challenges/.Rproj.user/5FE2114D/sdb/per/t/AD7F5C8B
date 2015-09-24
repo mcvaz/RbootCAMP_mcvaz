@@ -1,0 +1,17 @@
+{
+    "contents" : "---\ntitle: \"Plotting Challenges\"\nauthor: \"M. Vaz\"\ndate: \"Thursday, September 17, 2015\"\noutput: html_document\n---\n#1.\n##a)\n```{r}\nsnpsDataFrame = read.table('hapmap_CEU_r23a_chr2_ld-1.txt',header=TRUE)\nsnps=as.matrix(snpsDataFrame)\ncalc_freq=function(x){\n  return(sum(x,na.rm=TRUE)/(2.0*sum(!is.na(x))))\n  }\ncalc_het=function(x){\n\treturn(sum(x==1,na.rm=TRUE)/(sum(!is.na(x))))\n  }\nfreq=apply(snps,1,calc_freq)\nhet=apply(snps,1,calc_het)\ncompute_chisquare=function(x){\n\tfreq=sum(x,na.rm=TRUE)/(2.0*sum(!is.na(x)))\n\tcnt0=sum(x==0,na.rm=TRUE)\n\tcnt1=sum(x==1,na.rm=TRUE)\n\tcnt2=sum(x==2,na.rm=TRUE)\n\tobscnts=c(cnt0,cnt1,cnt2)\n\t#print(obscnts)\n\tn=sum(obscnts)\n\texpcnts=c((1-freq)^2,2*freq*(1-freq),freq^2)*n\n\tchisq=sum((obscnts-expcnts)^2/expcnts)\n\treturn(chisq)\n  }\nchisqs=apply(snps,1,compute_chisquare)\npvals=pchisq(chisqs,1,lower.tail=FALSE)\npvals\n```\n\n##b)\n```{r}\nmean(pvals<.05)\nmean(pvals<.01)\nmean(pvals<.001)\n```\n\n## c)\n```{r}\nnum_pval = length(pvals)\nnum_pval\n```\n\n## d)\n```{r}\nexp_pvals = 1:num_pval/num_pval\nexp_pvals\n```\n\n## e)\n```{r}\nsort_pvals = sort(pvals)\nsort_pvals\n```\n\n## f)\n```{r}\nlog_sort_pvals = -log10(sort_pvals)\nlog_exp_pvals = -log10(exp_pvals)\n```\n\n## g)\n```{r}\nplot(y=log_sort_pvals,x=log_exp_pvals,xlab=\"Expected p-values\",ylab=\"Observed p-values\")\n```\n\n## h)\n```{r}\nabline(a=0,b=1,col=2,lwd=2,lty=2)\n```\n\n\n#2.\n## a)\n```{r}\nzz = read.table('pheno.sim.2014-1.txt',header=T,as.is=T,sep=\" \")\nstr(zz)\nhead(zz)\n```\n\n## b)\n```{r}\nq25 = quantile(zz$glu,probs=.25)\ncontrols = zz[zz$glu<q25,\"Indiv\"]\n```\n\n## c)\n```{r}\nq75 = quantile(zz$glu,probs=.75)\ncases = zz[zz$glu>q75,\"Indiv\"]\n```\n\n## d)\n```{r}\nplot(density(zz$glu),xlab=\"Glucose levels\",main=\"\")\nabline(v=c(q25,q75),lty=2,col=2)\n```\n\n## e)\n```{r}\ncase_genotypes = snpsDataFrame['rs7584086_T',cases]\n```\n\n## f)\n```{r}\ncontrol_genotypes = snpsDataFrame['rs7584086_T',controls]\n```\n\n## g)\n```{r}\ntable(as.numeric(case_genotypes))\n```\n\n## h)\n```{r}\ntable(as.numeric(control_genotypes))\n\n```\n",
+    "created" : 1442534627360.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2926082230",
+    "id" : "AD7F5C8B",
+    "lastKnownWriteTime" : 1442648881,
+    "path" : "C:/Users/Marcel/Dropbox/PhD/CLASSES/RbootCAMP_mcvaz/Exercise3_Plotting_Challenges/Ex3.Rmd",
+    "project_path" : "Ex3.Rmd",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_markdown"
+}

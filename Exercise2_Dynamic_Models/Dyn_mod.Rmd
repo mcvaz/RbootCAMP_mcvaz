@@ -1,0 +1,251 @@
+---
+title: "Dynamic models"
+author: "M. Vaz"
+date: "Wednesday, September 23, 2015"
+output: html_document
+---
+# 3. Discrete-time, geometric growth model
+## 3.2 Geometric model
+```{r}
+#geometricGrowthScript.R
+#ascripttosimulateandplotthediscretelogisticmodel
+#Setup
+#noneneeded,sinceprogramissosimple
+#Setparametervaluesandinitialconditions,andinitializevariablesforoutput
+N0 <- 25
+RR <- 1.05
+ttMax <- 100   # total number of timesteps to simulate
+NN <- matrix(NA, nrow=1, ncol=ttMax+1)  # initialize variable to a vector of NA values
+NN[1] <- N0   # set first value to initial condition
+#LoopoverttMaxtimesteps,usingthemodelequationtoupdateNN.
+for (tt in 1:ttMax) {
+  NN[tt+1] <- RR*NN[tt]
+  }
+#Plottheresults
+plot(1:(ttMax+1),NN, xlab="time", ylab="N", type="b", col='blue')
+```
+
+### 3.2.1 Mini-exercise
+```{r}
+RR = .9
+NN[1] <- N0   # set first value to initial condition
+for (tt in 1:ttMax) {
+  NN[tt+1] <- RR*NN[tt]
+  }
+plot(1:(ttMax+1),NN, xlab="time", ylab="N", type="b", col='blue')
+# growth rate just need to be lower than 1 for population size to decline
+
+N0 <- 0
+RR <- 1.05
+ttMax <- 100   # total number of timesteps to simulate
+NN <- matrix(NA, nrow=1, ncol=ttMax+1)  # initialize variable to a vector of NA values
+NN[1] <- N0   # set first value to initial condition
+for (tt in 1:ttMax) {
+  NN[tt+1] <- RR*NN[tt]
+  }
+plot(1:(ttMax+1),NN, xlab="time", ylab="N", type="b", col='blue')
+
+N0 <- 1000
+NN <- matrix(NA, nrow=1, ncol=ttMax+1)  # initialize variable to a vector of NA values
+NN[1] <- N0   # set first value to initial condition
+for (tt in 1:ttMax) {
+  NN[tt+1] <- RR*NN[tt]
+  }
+plot(1:(ttMax+1),NN, xlab="time", ylab="N", type="b", col='blue')
+# Model's output only qualitatively changes when N0 = 0
+
+N0 <- 1
+RR <- 1.5
+ttMax <- 100   # total number of timesteps to simulate
+NN <- matrix(NA, nrow=1, ncol=ttMax+1)  # initialize variable to a vector of NA values
+NN[1] <- N0   # set first value to initial condition
+for (tt in 1:ttMax) {
+  NN[tt+1] <- RR*NN[tt]
+  }
+jpeg('discr_exp_growth.jpeg')
+plot(1:(ttMax+1),NN, xlab="time", ylab="N", type="b", col='blue',cex=.5,pch=16)
+dev.off()
+```
+
+### 3.2.2 Exercise
+```{r}
+geometricGrowthFun = function(N0=10, RR=0.95, ttMax=100){
+  NN <- matrix(NA, nrow=1, ncol=ttMax+1)  # initialize variable to a vector of NA values
+  NN[1] <- N0   # set first value to initial condition
+  for (tt in 1:ttMax) {
+    NN[tt+1] <- RR*NN[tt]
+    }
+  plot(1:(ttMax+1),NN, xlab="time", ylab="N", type="b", col='blue',cex=.5,pch=16)
+  }
+geometricGrowthFun()
+geometricGrowthFun(RR = 1)
+geometricGrowthFun(RR = 1.1)
+geometricGrowthFun(N0 = 100)
+```
+
+## 3.3 Logistic growth in discrete time
+```{r}
+source('discrete_logistic.R')
+```
+
+### 3.3.1 Mini-exercise
+```{r}
+discreteLogisticFun(N0=1)
+discreteLogisticFun(KK=100)
+discreteLogisticFun(RR=.1) # the smallest the r, the longer it takes for N to stabilize
+discreteLogisticFun(RR=.5)
+discreteLogisticFun(RR=1)
+discreteLogisticFun(RR=1.5)
+discreteLogisticFun(RR=1.9) # when 1 < r < 2, N oscilates around the equilibrium, and then stabilizes
+discreteLogisticFun(RR=2)
+discreteLogisticFun(RR=2.1)
+discreteLogisticFun(RR=2.2)
+discreteLogisticFun(RR=2.3)
+discreteLogisticFun(RR=2.4) # when 2 < r < 2.5, N oscilates, but doesn't seem to converge into an equilibrium point
+discreteLogisticFun(RR=2.5) # at this r value, N oscillates in two different frequencies
+discreteLogisticFun(RR=2.6) # beggining of chaos?
+discreteLogisticFun(RR=2.7)
+discreteLogisticFun(RR=2.8)
+discreteLogisticFun(RR=2.9)
+discreteLogisticFun(RR=3)
+discreteLogisticFun(RR=3.1) # population collapses!
+```
+
+### 3.3.2 Mini-exercise 2
+```{r}
+par(mfrow=c(2,3))
+for(rr in c(-.3,.3,1.3,1.9,2.2,2.7)){
+  discreteLogisticFun(N0=10,K=100,RR=rr)
+  }
+par(mfrow=c(1,1))
+```
+
+### 3.3.3 Advanced exercise
+```{r}
+RR = seq(-1,3,.5)
+Nf = matrix(NA,ncol=length(RR),nrow=100)
+for(i in 1:length(RR)){
+  for(j in 1:100){
+    Nf[j,i] = discreteLogisticFun(N0=10,K=100,RR=RR[i],ttMax=100+10*j)[100+10*j]
+    }
+  } 
+head(Nf)
+tail(Nf)
+matplot(x=as.matrix(RR),y=t(Nf),type='l')
+```
+
+# 4. Differential equation model
+```{r}
+library('deSolve')
+```
+
+## 4.1 Exponential growth
+```{r}
+expGrowthODE  <- function(tt, yy, pars) {
+  derivs <- pars['rr'] * yy
+  return(list(derivs))
+  }
+
+init <- 1
+tseq <- seq(0, 20, by=0.01)
+pars <- c(rr = 0.1)
+
+expGrowthOutput <- lsoda( init, tseq, expGrowthODE, pars)
+head(expGrowthOutput)
+
+plot(expGrowthOutput[,1], expGrowthOutput[,2], col='blue', type='l')
+```
+
+### 4.1.1 Mini-exercise
+```{r}
+source('ODE_exp_growth.R')
+
+odeExpGr(init=1,tseq=seq(0,20,.01),pars=c(rr=.1))
+odeExpGr(init=1,tseq=seq(0,20,.01),pars=c(rr=.5))
+odeExpGr(init=1,tseq=seq(0,20,.01),pars=c(rr=1))
+odeExpGr(init=1,tseq=seq(0,20,.01),pars=c(rr=0))
+odeExpGr(init=1,tseq=seq(0,20,.01),pars=c(rr=-.1))
+
+odeExpGr(init=1,tseq=seq(0,20,.01),pars=c(rr=.1))
+odeExpGr(init=10,tseq=seq(0,20,.01),pars=c(rr=.1))
+odeExpGr(init=100,tseq=seq(0,20,.01),pars=c(rr=.1))
+
+odeExpGr(init=1,tseq=seq(0,20,.01),pars=c(rr=.1))
+odeExpGr(init=1,tseq=seq(0,100,.01),pars=c(rr=.1))
+odeExpGr(init=1,tseq=seq(0,1000,.01),pars=c(rr=.1))
+
+# contrary to the discrete model, N only goes down when r < 0
+```
+
+## 4.2. Logistic growth model
+```{r}
+source('ODE_log_growth.R')
+```
+
+### 4.2.1 Mini-exercise
+```{r}
+odeLogGr(init=1,tseq=seq(0,100,.01),pars=c(rr=.1,kk=100))
+odeLogGr(init=1,tseq=seq(0,100,.01),pars=c(rr=.5,kk=100))
+odeLogGr(init=1,tseq=seq(0,100,.01),pars=c(rr=.1,kk=1000))
+odeLogGr(init=1,tseq=seq(0,100,.01),pars=c(rr=.1,kk=10))
+odeLogGr(init=10,tseq=seq(0,100,.01),pars=c(rr=.1,kk=100))
+odeLogGr(init=100,tseq=seq(0,100,.01),pars=c(rr=.1,kk=100))
+
+# When N = K, growth is zero
+odeLogGr(init=100,tseq=seq(0,100,.01),pars=c(rr=.5,kk=100))
+
+# By the equation, the closest N is to zero, the closest growth is to the exponential
+odeLogGr(init=1,tseq=seq(0,10,.01),pars=c(rr=.5,kk=200))
+odeLogGr(init=.01,tseq=seq(0,10,.01),pars=c(rr=.5,kk=200))
+odeLogGr(init=.001,tseq=seq(0,10,.01),pars=c(rr=.5,kk=200))
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
+
+### 
+```{r}
+
+```
